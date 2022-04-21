@@ -5,7 +5,7 @@
 
 <script>
 import { fabric } from 'fabric';
-import { box } from '../assets/BoundingBox.js'
+import BoundingBox from '../assets/BoundingBox.js'
 
 export default {
   name: 'imageUpload',
@@ -25,11 +25,15 @@ export default {
           image : null,
           imageUrl: null
       },
-      canvas: null
+      canvas: null,
+      boundingO: {
+        x: 0,
+        y: 0,
+      }
     }
   },
   mounted() {
-      this.canvas = new fabric.Canvas(this.$refs.can);
+      this.canvas = new fabric.Canvas(this.$refs.can, {selection: false});
       this.canvas.setDimensions({width: this.canW, height: this.canH});
   },
   methods: {
@@ -38,10 +42,10 @@ export default {
       this.image = file;
       this.item.imageUrl = URL.createObjectURL(file);
       this.canvas.setBackgroundImage(this.item.imageUrl, this.canvas.renderAll.bind(this.canvas))
-      this.canvas.add(box);
-    }
+      BoundingBox(this.canvas);
+    },
   },
 
 } 
 </script>
-// from https://stackoverflow.com/questions/47650154/how-do-i-upload-image-in-vuejs
+// Some inspiration from https://stackoverflow.com/questions/47650154/how-do-i-upload-image-in-vuejs
