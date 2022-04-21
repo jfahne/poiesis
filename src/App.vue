@@ -1,17 +1,31 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <canvas ref="can" width="2000" height="2000"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { fabric } from 'fabric'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  mounted() {
+    const ref = this.$refs.can;
+    const canvas = new fabric.Canvas(ref);
+    const rect = new fabric.Rect({
+      fill: 'red',
+      width: 20,
+      height: 20,
+      opacity: 0.2,
+    });
+    const rect1 = new fabric.Rect({
+      fill: 'blue',
+      width: 20,
+      height: 20,
+      opacity: 1,
+    });
+    canvas.add(rect);
+    canvas.add(rect1);
   }
-}
+};
 </script>
 
 <style>
