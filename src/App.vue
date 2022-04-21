@@ -1,29 +1,16 @@
 <template>
-  <canvas ref="can" width="2000" height="2000"/>
+  <UploadButton :canW=2000 :canH=2000> </UploadButton>
 </template>
 
 <script>
-import { fabric } from 'fabric'
+import UploadButton from './components/UploadButton.vue'
 
 export default {
   name: 'App',
+  components: {
+    UploadButton
+  },
   mounted() {
-    const ref = this.$refs.can;
-    const canvas = new fabric.Canvas(ref);
-    const rect = new fabric.Rect({
-      fill: 'red',
-      width: 20,
-      height: 20,
-      opacity: 0.2,
-    });
-    const rect1 = new fabric.Rect({
-      fill: 'blue',
-      width: 20,
-      height: 20,
-      opacity: 1,
-    });
-    canvas.add(rect);
-    canvas.add(rect1);
   }
 };
 </script>
