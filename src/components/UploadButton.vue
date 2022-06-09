@@ -1,11 +1,16 @@
 <template>
-    <input type="file" accept="image/*" @change="onChange" />
+    <input type="file" accept="image/*" @change="uploadFile" />
+    <button @click="onBoundingBoxActive"> Bounding Box </button>
+    <button @click="logCanvasData"> Log Canvas </button>
+    <button @click="undoHistory"> Undo </button>
+    <button @click="redoHistory"> Redo </button>
     <canvas ref="can"></canvas>
 </template>
 
 <script>
 import { fabric } from 'fabric';
 import BoundingBox from '../assets/BoundingBox.js'
+import History from '../assets/StateStore.js'
 
 export default {
   name: 'imageUpload',
@@ -26,26 +31,55 @@ export default {
           imageUrl: null
       },
       canvas: null,
-      boundingO: {
-        x: 0,
-        y: 0,
-      }
+      boundingBoxActive: false,
+      bgSet: false,
     }
   },
   mounted() {
       this.canvas = new fabric.Canvas(this.$refs.can, {selection: false});
       this.canvas.setDimensions({width: this.canW, height: this.canH});
+      this.history = new History();
   },
   methods: {
-    onChange(e) {
-      const file = e.target.files[0];
-      this.image = file;
-      this.item.imageUrl = URL.createObjectURL(file);
-      this.canvas.setBackgroundImage(this.item.imageUrl, this.canvas.renderAll.bind(this.canvas))
-      BoundingBox(this.canvas);
+    turnOffListeners() {
+      if (this.boundingBoxActive) {
+        this.boundingBoxActive = !this.boundingBoxActive;
+      }
+      this.canvas.off('mouse:down').off('mouse:move').off('mouse:up');
     },
+    updateHistory() {
+      this.canvas.renderAll();
+      console.log(JSON.stringify(this.canvas));
+      this.history.push(JSON.stringify(this.canvas));
+    },
+    undoHistory() {
+      this.turnOffListeners();
+      this.canvas.loadFromJSON(this.history.undo());
+    },
+    redoHistory() {
+      this.turnOffListeners();
+      this.canvas.loadFromJSON(this.history.redo());
+    },
+    uploadFile(e) {
+      const file = e.target.files[0];
+      this.item.image = file;
+      this.item.imageUrl = URL.createObjectURL(file);
+      this.canvas.setBackgroundImage(this.item.imageUrl, this.canvas.renderAll.bind(this.canvas));
+      this.canvas.renderAll();
+      this.bgSet = 1;
+    },
+    onBoundingBoxActive() {
+      if (this.bgSet) {
+        this.updateHistory();
+        this.bgSet = !this.bgSet;
+      }
+      this.boundingBoxActive = !this.boundingBoxActive;
+      BoundingBox(this.canvas, this.boundingBoxActive, this.history);   
+    },
+    logCanvasData() {
+      console.log(JSON.stringify(this.canvas));
+    }
   },
 
 } 
 </script>
-// Some inspiration from https://stackoverflow.com/questions/47650154/how-do-i-upload-image-in-vuejs

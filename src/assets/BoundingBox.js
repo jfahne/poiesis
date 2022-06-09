@@ -1,8 +1,11 @@
 import { fabric } from "fabric";
 
-export default function(canvas) {
+export default function(canvas, toggle, history) {
+    if (!toggle) {
+        canvas.off('mouse:down').off('mouse:move').off('mouse:up');
+        return;
+    }
     let box, isDown, origX, origY;
-
     canvas.on('mouse:down', function(o) {
         isDown = true;
         let pointer = canvas.getPointer(o.e);
@@ -38,8 +41,9 @@ export default function(canvas) {
 
     canvas.on('mouse:up', function() {
         isDown = false;
-        canvas.off('mouse:down').off('mouse:move').off('mouse:up');
+        history.push(JSON.stringify(canvas));
     });
+    
 }
 
 // code from https://stackoverflow.com/questions/9417603/fabric-js-free-draw-a-rectangle
