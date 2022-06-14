@@ -37,8 +37,6 @@
       </div>
       </div>
     </div>
-    
-   
 </template>
 
 <script>
@@ -64,7 +62,7 @@ export default {
   },
   data() {
     return {
-     mode:"dark",
+     mode:"light",
      arr: ["Poiesis", "ποίησις"],
       item:{
           image : null,

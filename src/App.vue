@@ -1,5 +1,5 @@
 <template>
-  <UploadButton :canW=500 :canH=500> </UploadButton>
+  <UploadButton :canW=300 :canH=300 > </UploadButton>
 </template>
 
 <script>
