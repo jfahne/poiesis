@@ -1,5 +1,5 @@
 <template>
-  <UploadButton :canW=2000 :canH=2000> </UploadButton>
+  <UploadButton :canW=500 :canH=500> </UploadButton>
 </template>
 
 <script>
@@ -15,13 +15,4 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+
