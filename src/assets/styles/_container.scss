@@ -1,0 +1,27 @@
+
+
+.container{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.horizontal-container{
+    min-width: 20vw;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 10px;
+    border-radius: 32px;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+.dark-container{
+    background-color: $container-background-color-dark;
+    color: $text-dark;
+}
+.light-container{
+    background-color: $container-background-color;
+    color:$text-light;
+}

@@ -1,0 +1,98 @@
+@mixin animate($animation,$duration){
+    animation: $animation $duration ;
+}
+
+@mixin keyframes($name){
+    @keyframes #{$name}{
+        @content;
+    }
+}
+
+@include keyframes (gradient-light) {
+    0%{
+        background: radial-gradient(circle at center,#fff 0%,$background-color 0%,$background-color 100%);
+    }
+    25%{
+        background: radial-gradient(circle at center,#fff 24%,$background-color 25%,$background-color 100%);
+    }
+    50%{
+        background: radial-gradient(circle at center,#fff 49%,$background-color 50%,$background-color 100%);
+    }
+    75%{
+        background: radial-gradient(circle at center,#fff 74%,$background-color 75%,$background-color 100%);
+    }
+    100%{
+        background: radial-gradient(circle at center,#fff 99%,$background-color 100%,$background-color 100%);
+    }
+}
+
+@include keyframes (gradient-dark) {
+    0%{
+        background: radial-gradient(circle at center,$container-background-color-dark 0%,$background-color-dark 0%,$background-color-dark 100%);
+    }
+    25%{
+        background: radial-gradient(circle at center,$container-background-color-dark 24%,$background-color-dark 25%,$background-color-dark 100%);
+    }
+    50%{
+        background: radial-gradient(circle at center,$container-background-color-dark 49%,$background-color-dark 50%,$background-color-dark 100%);
+    }
+    75%{
+        background: radial-gradient(circle at center,$container-background-color-dark 74%,$background-color-dark 75%,$background-color-dark 100%);
+    }
+    100%{
+        background: radial-gradient(circle at center,$container-background-color-dark 99%,$background-color-dark 100%,$background-color-dark 100%);
+    }
+}
+
+.button-group{
+    display: flex;
+    justify-content: stretch;
+
+    button{
+        font-weight: bold;
+        font-size: 1rem;
+        display: flex;
+        outline: none;
+        border: 0;
+        border-radius: 9px;
+        padding: 20px;
+    }
+    
+}
+
+.button-group.button-light  {
+       
+        button{
+            background-color: $container-background-color;
+            color:$text-light;
+            &:hover{
+                background-color: $background-color;
+            }
+            &:active{
+                @include animate(gradient-light,100ms);
+            }
+        }
+    }
+
+.button-group.button-dark{
+        button{
+            background-color: $container-background-color-dark;
+            color: $text-dark;
+            &:hover{
+                background-color: $background-color-dark;
+            }
+            &:active{
+                @include animate(gradient-dark,100ms);
+            }
+        } 
+       
+}
+.dark-mode-button-light{
+  border: 0;
+  background-color: $background-color;
+ 
+}
+.dark-mode-button-dark{
+    border: 0;
+    background-color: $background-color-dark;
+}
