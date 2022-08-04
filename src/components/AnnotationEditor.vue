@@ -62,9 +62,15 @@ export default {
     },
     uploadFile(e) {
       const file = e.target.files[0];
+      const canvas = this.canvas;
       this.item.image = file;
       this.item.imageUrl = URL.createObjectURL(file);
-      this.canvas.setBackgroundImage(this.item.imageUrl, this.canvas.renderAll.bind(this.canvas));
+      fabric.Image.fromURL(this.item.imageUrl, function(img) {
+        canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+          scaleX: (img.width > img.height ? canvas.width/img.width : canvas.height/img.height),
+          scaleY: (img.width > img.height ? canvas.width/img.width : canvas.height/img.height),
+      });
+      });
       this.canvas.renderAll();
       this.bgSet = 1;
     },

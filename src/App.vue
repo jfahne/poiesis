@@ -1,14 +1,14 @@
 <template>
-  <UploadButton :canW=2000 :canH=2000> </UploadButton>
+  <AnnotationEditor :canW=1000 :canH=1000> </AnnotationEditor>
 </template>
 
 <script>
-import UploadButton from './components/UploadButton.vue'
+import AnnotationEditor from './components/AnnotationEditor.vue'
 
 export default {
   name: 'App',
   components: {
-    UploadButton
+    AnnotationEditor,
   },
   mounted() {
   }
@@ -20,7 +20,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
   margin-top: 60px;
 }
